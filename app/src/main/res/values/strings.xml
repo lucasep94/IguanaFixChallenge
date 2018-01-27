@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">IguanafixChallenge</string>
+
+    <string name="detail_title_firstname">Nombre:</string>
+    <string name="detail_title_lastname">Apellido:</string>
+    <string name="detail_title_birthdate">Dia nacimiento:</string>
+    <string name="detail_title_createdat">Creado:</string>
+
+
+</resources>
