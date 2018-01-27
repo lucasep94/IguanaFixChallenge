@@ -22,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class ListadoContactFragment extends Fragment implements ContactAdapter.NotificableDeClickRecycler {
@@ -30,6 +31,7 @@ public class ListadoContactFragment extends Fragment implements ContactAdapter.N
     private ContactAdapter adapter;
 
     @BindView(R.id.ListadoFragment_RecyclerList) RecyclerView recyclerPedidos;
+    private Unbinder unbinder;
 
     public ListadoContactFragment() {
         // Required empty public constructor
@@ -40,7 +42,7 @@ public class ListadoContactFragment extends Fragment implements ContactAdapter.N
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_listado, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         NotificableDeFragmentListado notificable = (NotificableDeFragmentListado) getActivity();
 
@@ -58,6 +60,12 @@ public class ListadoContactFragment extends Fragment implements ContactAdapter.N
         ));
 
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     private void getListado(){

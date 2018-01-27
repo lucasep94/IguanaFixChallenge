@@ -2,7 +2,9 @@ package com.lucasperez.iguanafixchallenge.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Phone {
+import java.io.Serializable;
+
+public class Phone  implements Serializable {
 
     @SerializedName("type")
     private String type;
@@ -17,7 +19,7 @@ public class Phone {
         this.type = type;
     }
 
-    public Object getNumber() {
+    public String getNumber() {
         return number;
     }
 

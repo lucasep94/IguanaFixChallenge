@@ -2,10 +2,12 @@ package com.lucasperez.iguanafixchallenge.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Address {
-    @SerializedName("home")
+import java.io.Serializable;
 
+public class Address  implements Serializable {
+    @SerializedName("home")
     private String home;
+    @SerializedName("work")
     private String work;
 
     public Address() {

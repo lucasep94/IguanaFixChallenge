@@ -51,22 +51,21 @@ public class ContactDAO {
         });
     }
 
-    public void getContactById(Integer contactId,final ResultListener<List<Contact>> listenerFromView){
+    public void getContactById(final String contactId, final ResultListener<Contact> listenerFromView){
         IguanaApiService service = retrofit.create(IguanaApiService.class);
-        Call<ContainerContacts> containerContactsCallRespuestaCall = service.getContactId(contactId);
+        Call<Contact> containerContactsCallRespuestaCall = service.getContactId(contactId);
 
-        containerContactsCallRespuestaCall.enqueue(new Callback<ContainerContacts>() {
+        containerContactsCallRespuestaCall.enqueue(new Callback<Contact>() {
             @Override
-            public void onResponse(Call<ContainerContacts> call, Response<ContainerContacts> response) {
+            public void onResponse(Call<Contact> call, Response<Contact> response) {
                 if (response.isSuccessful()){
-                    ContainerContacts contactsResponse = response.body();
-                    /*List<Contact> contactList = contactsResponse.getContacts();
-                    listenerFromView.finish(contactList);*/
+                    Contact contactResponse = response.body();
+                    listenerFromView.finish(contactResponse);
                 }
             }
 
             @Override
-            public void onFailure(Call<ContainerContacts> call, Throwable t) {
+            public void onFailure(Call<Contact> call, Throwable t) {
                 listenerFromView.finish(null);
             }
         });

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
+import com.lucasperez.iguanafixchallenge.Controllers.ContactController;
+import com.lucasperez.iguanafixchallenge.Helpers.ResultListener;
 import com.lucasperez.iguanafixchallenge.Models.Contact;
 import com.lucasperez.iguanafixchallenge.R;
 import com.lucasperez.iguanafixchallenge.Views.Fragments.DetalleContactFragment;
@@ -15,18 +17,24 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity implements ListadoContactFragment.NotificableDeFragmentListado{
 
     @BindView(R.id.MainActivity_FrameContainer) FrameLayout fragmentContainer;
     private ListadoContactFragment contactListFragment;
     private DetalleContactFragment contactDetailFragment;
+    private Unbinder unbinder;
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
-        if(!contactListFragment.isVisible()){
+        //super.onBackPressed();
+
+        if(contactDetailFragment.isVisible()){
+            this.replaceFragment(this.contactListFragment);
+        }
+        else{
             super.onBackPressed();
         }
 
@@ -36,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements ListadoContactFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         this.contactListFragment = new ListadoContactFragment();
         this.contactDetailFragment = new DetalleContactFragment();
@@ -47,19 +55,16 @@ public class MainActivity extends AppCompatActivity implements ListadoContactFra
     private void replaceFragment(Fragment fragment){
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.MainActivity_FrameContainer,fragment)
-                .addToBackStack("fragmentMain")
+                .replace(R.id.MainActivity_FrameContainer,fragment)
                 .commit();
     }
 
     @Override
     public void clickedContact(Contact clickedContact, List<Contact> currentList, int positionClicked) {
-        Snackbar.make(fragmentContainer,"Clicked: " + clickedContact.getUserId(),Snackbar.LENGTH_SHORT).show();
-
+        //Snackbar.make(fragmentContainer,"Clicked: " + clickedContact.getUserId(),Snackbar.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(DetalleContactFragment.KEY_CONTACT,clickedContact);
-        this.contactDetailFragment.setArguments(bundle);
-        this.replaceFragment(this.contactDetailFragment);
-
+        bundle.putString(DetalleContactFragment.KEY_CONTACT,clickedContact.getUserId());
+        contactDetailFragment.setArguments(bundle);
+        replaceFragment(contactDetailFragment);
     }
 }

@@ -66,7 +66,8 @@ public class ContactAdapter extends RecyclerView.Adapter  {
     public void cargarNuevaLista(List<Contact> newContactList){
         //contactList.clear();
         if(newContactList!= null) {
-            contactList.addAll(newContactList);
+            //contactList.addAll(newContactList);
+            contactList = newContactList;
             notifyDataSetChanged();
         }
     }

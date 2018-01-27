@@ -20,7 +20,7 @@ public interface IguanaApiService {
     );
 
     @GET("contacts/{contactId}")
-    Call<ContainerContacts> getContactId(
-        @Path("contactId") Integer contactId
+    Call<Contact> getContactId(
+        @Path("contactId") String contactId
     );
 }

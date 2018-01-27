@@ -1,6 +1,8 @@
 package com.lucasperez.iguanafixchallenge.Models;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
@@ -66,5 +68,27 @@ public class Contact implements Serializable{
 
     public String getFullName(){
         return getFirstName() + " " + getLastName();
+    }
+
+    public String getBirthDateFormatted(){
+        if(this.birthDate != null){
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaFormateada = df.format(this.birthDate);
+            return fechaFormateada;
+        }
+        else{
+            return "";
+        }
+    }
+
+    public String getCreatedAtFormatted(){
+        if(this.createdAt != null){
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaFormateada = df.format(this.createdAt);
+            return fechaFormateada;
+        }
+        else{
+            return "";
+        }
     }
 }

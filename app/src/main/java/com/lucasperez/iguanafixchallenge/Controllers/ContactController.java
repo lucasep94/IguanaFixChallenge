@@ -19,7 +19,7 @@ public class ContactController {
         dao.getContactList(listenerFromView);
     }
 
-    public void getContactById(Integer contactId, ResultListener<List<Contact>> listenerFromView){
+    public void getContactById(String contactId, ResultListener<Contact> listenerFromView){
         ContactDAO dao = new ContactDAO();
         dao.getContactById(contactId, listenerFromView);
     }
